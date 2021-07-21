@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'crispy_forms', 
     'blogApp.apps.BlogappConfig',
     'users.apps.UsersConfig',
+    'django_cleanup',
     
 ]
 
