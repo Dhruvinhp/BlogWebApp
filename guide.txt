@@ -1,0 +1,85 @@
+ORM: object Relational Mapper
+allows us to access database
+
+In shell;
+
+In [1]: from blogApp.models import Post
+
+In [2]: from django.contrib.auth.models import User
+
+In [3]: User.objects.all()
+Out[3]: <QuerySet [<User: admin>]>
+
+In [4]: User.objects.filter(username = admin)
+
+In [9]: user = User.objects.filter(username='admin').first()
+
+In [10]: user
+Out[10]: <User: admin>
+
+In [11]: user.id
+Out[12]: 1
+
+In [13]: user.pk
+Out[13]: 1
+
+In [14]: Post.objects.all()
+Out[14]: <QuerySet []>
+
+In [15]: user = User.objects.filter(username='user1').first()
+
+In [16]: user
+Out[16]: <User: user1>
+
+In [20]: post1 = Post(title = 'blog1', content= 'First blog content', author = user)
+
+In [6]: user = User.objects.filter(username = 'user1').first()
+
+In [7]: user
+Out[7]: <User: user1>
+
+In [8]: post2 = Post(title = 'blog2', content = 'i have something say about', author = user)
+
+In [10]: post2.save()
+
+In [11]: Post.objects.all()
+Out[11]: <QuerySet [<Post: blog1>, <Post: blog2>]>
+
+In [13]: post3 = Post(title = 'blog3', content = 'i have something say about', author_id = user.id)
+
+In [14]: post3.save()
+
+In [15]: Post.objects.all()
+Out[15]: <QuerySet [<Post: blog1>, <Post: blog2>, <Post: blog3>]>
+
+In [16]: post = Post.objects.first()
+
+In [17]: post.author
+Out[17]: <User: user1>
+
+In [18]: post.content
+Out[18]: 'First blog content'
+
+In [19]: post.date_posted
+Out[19]: datetime.datetime(2021, 7, 19, 6, 7, 9, 117931, tzinfo=<UTC>)
+
+In [20]: post.author.email
+Out[20]: ''
+
+In [27]: user.post_set
+Out[27]: <django.db.models.fields.related_descriptors.create_reverse_many_to_one_manager.<locals>.RelatedManager at 0x1d213923460>
+
+In [28]: user.post_set.all()
+Out[28]: <QuerySet [<Post: blog1>, <Post: blog2>, <Post: blog3>]>
+
+In [29]: user.post_set.create(title = 'blog4', content = 'something in blog4', author = user)
+Out[29]: <Post: blog4>
+
+In [30]: user.post_set.all()
+Out[30]: <QuerySet [<Post: blog1>, <Post: blog2>, <Post: blog3>, <Post: blog4>]>
+
+In [31]: user.post_set.create(title = 'blog4', content = 'something in blog4')
+Out[31]: <Post: blog4>
+
+In [32]: user.post_set.all()
+Out[32]: <QuerySet [<Post: blog1>, <Post: blog2>, <Post: blog3>, <Post: blog4>, <Post: blog4>]>
